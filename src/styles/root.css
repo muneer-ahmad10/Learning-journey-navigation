@@ -1,0 +1,12 @@
+:root {
+  --bg-cream: #F8F9FA;
+  --study-blue: #3A7CA5;
+  --study-blue-transparent: rgba(58, 124, 165, 0.15);
+  --energy-gold: #FFD166;
+  --deep-navy: #2F3E46;
+  --text-secondary: #5A6D7B;
+}
+.hover-grow:hover {
+  transform: scale(1.03);
+  /* box-shadow: 0 5px 15px rgba(0,0,0,0.1); */
+}

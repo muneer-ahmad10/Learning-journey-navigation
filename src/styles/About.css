@@ -1,0 +1,107 @@
+.about-hero {
+  background: linear-gradient(135deg, #3A7CA5 0%, #2F3E46 100%);
+  color: white;
+}
+
+.mission-image {
+  background-color: #F8F9FA;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.mission-icon {
+  text-align: center;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease;
+  width: 150px;
+}
+
+.mission-icon:hover {
+  transform: translateY(-5px);
+}
+
+.mission-icon span {
+  display: block;
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+
+.feature-card {
+  background: white;
+  border: 1px solid #eee;
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+
+.feature-icon {
+  color: #3A7CA5;
+  font-size: 2rem;
+}
+
+.team-image {
+  width: 120px;
+  height: 120px;
+  border: 3px solid #3A7CA5;
+}
+
+.team-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.team-card {
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+}
+
+.cta-section {
+  background: linear-gradient(135deg, #FFD166 0%, #f9b42d 100%);
+  color: #2F3E46;
+}
+/* Methodology Cards */
+.method-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease;
+  height: 100%;
+}
+
+.method-card:hover {
+  transform: translateY(-5px);
+}
+
+.number-circle {
+  width: 40px;
+  height: 40px;
+  background: #3A7CA5;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Value Proposition */
+.mission-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.mission-list li {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+}
