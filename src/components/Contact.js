@@ -1,13 +1,59 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaPaperPlane } from 'react-icons/fa';
 import '../styles/Contact.css';
+import emailjs from 'emailjs-com';
 
 export default function ContactPage() {
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    subject: '',
+    message: '',
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add form submission logic here
-    alert('Your message has been sent! We will contact you soon.');
+
+    const templateParams = {
+      from_name: formData.firstName + ' ' + formData.lastName,
+      from_email: formData.email,
+      subject: formData.subject,
+      message: formData.message,
+    };
+
+    // Use EmailJS to send the email
+    emailjs
+      .send(
+        'service_mvllxyp', // Service ID
+        'template_ujhnd8n', // Template ID
+        templateParams,
+        'user_YOUR_USER_ID' // User ID (replace with your actual User ID)
+      )
+      .then(
+        (response) => {
+          alert('Your message has been sent! We will contact you soon.');
+          setFormData({
+            firstName: '',
+            lastName: '',
+            email: '',
+            subject: '',
+            message: '',
+          }); // Clear form data after successful submission
+        },
+        (error) => {
+          alert('Error sending message: ', error.text);
+        }
+      );
   };
 
   return (
@@ -89,25 +135,51 @@ export default function ContactPage() {
                   <Col md={6} className="mb-3">
                     <Form.Group controlId="formFirstName">
                       <Form.Label>First Name</Form.Label>
-                      <Form.Control type="text" placeholder="Enter your first name" required />
+                      <Form.Control 
+                        type="text" 
+                        placeholder="Enter your first name" 
+                        name="firstName"
+                        value={formData.firstName}
+                        onChange={handleChange}
+                        required 
+                      />
                     </Form.Group>
                   </Col>
                   <Col md={6} className="mb-3">
                     <Form.Group controlId="formLastName">
                       <Form.Label>Last Name</Form.Label>
-                      <Form.Control type="text" placeholder="Enter your last name" required />
+                      <Form.Control 
+                        type="text" 
+                        placeholder="Enter your last name" 
+                        name="lastName"
+                        value={formData.lastName}
+                        onChange={handleChange}
+                        required 
+                      />
                     </Form.Group>
                   </Col>
                 </Row>
 
                 <Form.Group className="mb-3" controlId="formEmail">
                   <Form.Label>Email Address</Form.Label>
-                  <Form.Control type="email" placeholder="Enter your email" required />
+                  <Form.Control 
+                    type="email" 
+                    placeholder="Enter your email" 
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required 
+                  />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formSubject">
                   <Form.Label>Subject</Form.Label>
-                  <Form.Select required>
+                  <Form.Select 
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    required
+                  >
                     <option value="">Select a subject</option>
                     <option>General Inquiry</option>
                     <option>Technical Support</option>
@@ -122,6 +194,9 @@ export default function ContactPage() {
                     as="textarea" 
                     rows={5} 
                     placeholder="Tell us about your learning journey needs" 
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
                     required 
                   />
                 </Form.Group>
