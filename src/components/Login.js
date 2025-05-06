@@ -29,7 +29,7 @@ export default function AboutPage() {
       const data = await response.json();
   
       if (response.ok) {
-        // Successful login
+        localStorage.setItem('isLoggedIn', 'true');  // ✅ Add this
         localStorage.setItem('token', data.token || 'dummy_token');
         setMessage('Redirecting to Dashboard...');
         setMessageType('success');

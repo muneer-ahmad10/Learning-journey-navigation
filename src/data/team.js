@@ -4,21 +4,21 @@ const teamMembers = [
     name: "Muneer Ahmad Dar",
     role: "",
     bio: "",
-    image: ""
+    image: "./Abrar.jpg"
   },
   {
     id: 2,
     name: "Fazil Nabi Naikoo",
     role: "",
     bio: "",
-    image: ""
+    image: "./Fazil.jpg"
   },
   {
     id: 3,
     name: "Amir Rasool",
     role: "",
     bio: "",
-    image: ""
+    image: "./Amir_rasool.jpg"
   }
 ];
 

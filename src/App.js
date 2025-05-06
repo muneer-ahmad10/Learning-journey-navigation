@@ -7,6 +7,7 @@ import About from '../src/components/About'
 import Contact from '../src/components/Contact';
 import Login from '../src/components/Login';
 import PasswordReset from "../src/components/PasswordReset";
+import Dashboard from "../src/components/DashboardFin";
 function App() {
   return (
     <Router>
@@ -19,6 +20,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/Reset" element={<PasswordReset />} />
+          <Route path="/Dashboard" element={<Dashboard />} />
         </Routes>
       </div>
     </Router>

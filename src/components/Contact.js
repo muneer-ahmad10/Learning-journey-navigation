@@ -34,10 +34,10 @@ export default function ContactPage() {
     // Use EmailJS to send the email
     emailjs
       .send(
-        'service_mvllxyp', // Service ID
-        'template_ujhnd8n', // Template ID
+        'service_y6uwjyn', // Service ID
+        'template_he5yurp', // Template ID
         templateParams,
-        'user_YOUR_USER_ID' // User ID (replace with your actual User ID)
+        'x-h20OGUw09mB1L2y'
       )
       .then(
         (response) => {
@@ -48,10 +48,11 @@ export default function ContactPage() {
             email: '',
             subject: '',
             message: '',
-          }); // Clear form data after successful submission
+          }); 
         },
         (error) => {
-          alert('Error sending message: ', error.text);
+          console.error('EmailJS Error:', error);
+          alert('Error sending message. Please check the console for more details.');
         }
       );
   };
