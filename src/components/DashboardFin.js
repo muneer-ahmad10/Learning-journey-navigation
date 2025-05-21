@@ -40,7 +40,7 @@ export default function Dashboard() {
       setWikiResult(wikiData.extract || 'No Wikipedia summary found.');
 
       // YouTube API call
-      const YT_API_KEY = 'api-key';
+      const YT_API_KEY = 'your_APi key';
       const ytUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(
         input + ' tutorial'
       )}&type=video&maxResults=6&key=${YT_API_KEY}`;

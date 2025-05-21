@@ -141,15 +141,15 @@ export default function AboutPage() {
         <Container>
           <h2 className="text-center fw-bold mb-5">Our Team</h2>
           <Row className="justify-content-center">
-            {teamMembers.map((member) => (
-              <Col sm={6} md={4} lg={3} key={member.id} className="mb-4">
+            {teamMembers.map((teamMembers) => (
+              <Col sm={6} md={4} lg={3} key={teamMembers.id} className="mb-4">
                 <div className="team-card text-center p-3 h-100">
                   <div className="team-image mb-3 mx-auto rounded-circle overflow-hidden">
-                    <img src={member.image} alt={member.name} />
+                    <img src={teamMembers.image} alt={teamMembers.name} />
                   </div>
-                  <h5 className="fw-bold mb-1">{member.name}</h5>
-                  <p className="text-muted small mb-2">{member.role}</p>
-                  <p className="small">{member.bio}</p>
+                  <h5 className="fw-bold mb-1">{teamMembers.name}</h5>
+                  <p className="text-muted small mb-2">{teamMembers.role}</p>
+                  <p className="small">{teamMembers.bio}</p>
                 </div>
               </Col>
             ))}
