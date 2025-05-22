@@ -29,8 +29,10 @@ export default function AboutPage() {
       const data = await response.json();
   
       if (response.ok) {
-        localStorage.setItem('isLoggedIn', 'true');  // ✅ Add this
+        localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem('token', data.token || 'dummy_token');
+        localStorage.setItem('user_id', data.user_id); // ✅ Store user_id from response
+      
         setMessage('Redirecting to Dashboard...');
         setMessageType('success');
         setTimeout(() => {

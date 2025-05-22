@@ -10,7 +10,8 @@ db = mysql.connector.connect(
     host="localhost",
     user="root",
     password="Bca@22550058",
-    database="Learning_journey_navigation"
+    database="Learning_journey_navigation",
+    ssl_disabled=True
 )
 cursor = db.cursor(dictionary=True)
 
@@ -74,13 +75,89 @@ def login():
 
         # Compare directly
         if password == stored_password:
-            return jsonify({'message': 'Login successful'}), 200
+            return jsonify({
+                'message': 'Login successful',
+                'user_id': user['user_id']  # ✅ Send user_id
+            }), 200
         else:
             return jsonify({'message': 'Invalid credentials'}), 401
 
     except Exception as e:
         print("Error during login:", e)
         return jsonify({'message': 'Login failed', 'error': str(e)}), 500
+
+
+@app.route('/history/search', methods=['POST'])
+def store_search():
+    try:
+        data = request.get_json()
+        user_id = data.get('user_id')
+        search_term = data.get('search_term')
+
+        if not user_id or not search_term:
+            return jsonify({'message': 'Missing user_id or search_term'}), 400
+
+        action = f"Searched for: {search_term}"
+        cursor.execute("INSERT INTO user_history (user_id, action) VALUES (%s, %s)", (user_id, action))
+        db.commit()
+
+        return jsonify({'message': 'Search history stored'}), 201
+    except Exception as e:
+        print("Error storing search:", e)
+        return jsonify({'message': 'Failed to store search', 'error': str(e)}), 500
+
+@app.route('/history/watch', methods=['POST'])
+def store_video_watch():
+    try:
+        data = request.get_json()
+        user_id = data.get('user_id')
+        video_title = data.get('video_title')
+
+        if not user_id or not video_title:
+            return jsonify({'message': 'Missing user_id or video_title'}), 400
+
+        action = f"Watched video: {video_title}"
+        cursor.execute("INSERT INTO user_history (user_id, action) VALUES (%s, %s)", (user_id, action))
+        db.commit()
+
+        return jsonify({'message': 'Video watch history stored'}), 201
+    except Exception as e:
+        print("Error storing watch history:", e)
+        return jsonify({'message': 'Failed to store watch history', 'error': str(e)}), 500
+
+# @app.route('/history/<int:user_id>', methods=['GET'])
+# def get_user_history(user_id):
+#     try:
+#         # Debug: print the incoming user_id
+#         print(f"Fetching history for user_id: {user_id}")
+
+#         cursor.execute("SELECT action, timestamp FROM user_history WHERE user_id = %s ORDER BY timestamp DESC", (user_id,))
+#         rows = cursor.fetchall()
+
+#         print(f"Fetched rows: {rows}")  # Debug: print fetched rows
+
+#         history = []
+#         for row in rows:
+#             action = row[0]
+#             timestamp = row[1]
+#             # Safely format timestamp
+#             if isinstance(timestamp, datetime):
+#                 timestamp_str = timestamp.strftime('%Y-%m-%d %H:%M:%S')
+#             else:
+#                 timestamp_str = str(timestamp)
+
+#             history.append({
+#                 "action": action,
+#                 "timestamp": timestamp_str
+#             })
+
+#         return jsonify(history), 200
+#     except Exception as e:
+#         import traceback
+#         traceback.print_exc()  # Print full traceback for debug
+#         return jsonify({'message': 'Failed to fetch history', 'error': repr(e)}), 500
+
+
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True)

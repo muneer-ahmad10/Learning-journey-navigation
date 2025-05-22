@@ -3,7 +3,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { 
   FaBars, FaTimes, FaInfoCircle, 
   FaPhoneAlt, FaSignInAlt, FaUserPlus, 
-  FaSignOutAlt, FaTachometerAlt, FaChevronRight 
+  FaSignOutAlt, FaChevronRight 
 } from "react-icons/fa";
 import "../styles/Navbar.css";
 
@@ -23,12 +23,10 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    // Listen for changes in localStorage across the app
     const handleStorageChange = () => {
       setIsLoggedIn(!!localStorage.getItem("token"));
     };
     window.addEventListener('storage', handleStorageChange);
-
     return () => window.removeEventListener('storage', handleStorageChange);
   }, []);
 
@@ -39,6 +37,11 @@ export default function Navbar() {
     setDrawerOpen(false);
   };
 
+  const handleLogoClick = () => {
+    navigate("/");
+    setDrawerOpen(false);
+  };
+
   const handleLinkClick = () => {
     setDrawerOpen(false);
   };
@@ -46,9 +49,9 @@ export default function Navbar() {
   return (
     <>
       <nav className="navbar fixed-top text-white shadow-sm d-flex align-items-center justify-content-between px-3 px-lg-5">
-        <Link to="/" className="logo text-white fw-bold d-flex align-items-center" onClick={handleLinkClick}>
+        <span className="logo text-white fw-bold d-flex align-items-center" onClick={handleLogoClick} style={{ cursor: "pointer" }}>
           <span className="logo-text">Learning Journey</span>
-        </Link>
+        </span>
 
         {!isMobile ? (
           <div className="nav-links d-flex gap-4 align-items-center">
@@ -60,14 +63,9 @@ export default function Navbar() {
             </NavLink>
 
             {isLoggedIn ? (
-              <>
-                <NavLink to="/dashboard" className={({ isActive }) => `nav-desktop-link ${isActive ? "active" : ""}`} onClick={handleLinkClick}>
-                  Dashboard
-                </NavLink>
-                <button className="btn btn-outline-light btn-sm px-3 py-2" onClick={handleLogout}>
-                  Logout
-                </button>
-              </>
+              <button className="btn btn-outline-light btn-sm px-3 py-2" onClick={handleLogout}>
+                Logout
+              </button>
             ) : (
               <>
                 <Link to="/login" className="btn btn-outline-light btn-sm px-4 py-1" onClick={handleLinkClick}>
@@ -111,15 +109,6 @@ export default function Navbar() {
                   <FaChevronRight className="text-muted" />
                 </NavLink>
               </li>
-
-              {isLoggedIn && (
-                <li>
-                  <NavLink to="/dashboard" className={({ isActive }) => `nav-link d-flex justify-content-between align-items-center ${isActive ? "active" : ""}`} onClick={handleLinkClick}>
-                    <span><FaTachometerAlt className="me-2" /> Dashboard</span>
-                    <FaChevronRight className="text-muted" />
-                  </NavLink>
-                </li>
-              )}
             </ul>
 
             <div className="drawer-bottom px-3 py-4">
